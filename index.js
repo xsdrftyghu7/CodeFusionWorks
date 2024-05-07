@@ -1,10 +1,10 @@
-function hasCycle(head) {
-  let slow = head;
-  let fast = head;
-  while (fast && fast.next) {
-    slow = slow.next;
-    fast = fast.next.next;
-    if (slow === fast) return true;
+function minimumTotal(triangle) {
+  const n = triangle.length;
+  const dp = new Array(n + 1).fill(0);
+  for (let i = n - 1; i >= 0; i--) {
+    for (let j = 0; j <= i; j++) {
+      dp[j] = triangle[i][j] + Math.min(dp[j], dp[j + 1]);
+    }
   }
-  return false;
+  return dp[0];
 }
