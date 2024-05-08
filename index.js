@@ -1,10 +1,20 @@
-function minimumTotal(triangle) {
-  const n = triangle.length;
-  const dp = new Array(n + 1).fill(0);
-  for (let i = n - 1; i >= 0; i--) {
-    for (let j = 0; j <= i; j++) {
-      dp[j] = triangle[i][j] + Math.min(dp[j], dp[j + 1]);
-    }
+function longestPalindrome(s) {
+  let longest = "";
+  for (let i = 0; i < s.length; i++) {
+    const oddPalindrome = expandAroundCenter(s, i, i);
+    const evenPalindrome = expandAroundCenter(s, i, i + 1);
+    const currentLongest =
+      oddPalindrome.length > evenPalindrome.length
+        ? oddPalindrome
+        : evenPalindrome;
+    if (currentLongest.length > longest.length) longest = currentLongest;
   }
-  return dp[0];
+  return longest;
+}
+function expandAroundCenter(s, left, right) {
+  while (left >= 0 && right < s.length && s[left] === s[right]) {
+    left--;
+    right++;
+  }
+  return s.slice(left + 1, right);
 }
