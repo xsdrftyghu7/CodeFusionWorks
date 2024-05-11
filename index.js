@@ -1,7 +1,21 @@
-// Alice should have the initial balance minus tranfer amount
-if (aliceBalanceAfter[0].amount !== ALICE_INITIAL_BALANCE - TRANSFER_AMOUNT)
-  throw new Error("Alice's balance after transfer is incorrect");
-
-// Sponsor should have the initial balance minus gas
-if (sponsorBalanceAfter[0].amount >= SPONSOR_INITIAL_BALANCE)
-  throw new Error("Sponsor's balance after transfer is incorrect");
+function minDistance(word1, word2) {
+  const m = word1.length;
+  const n = word2.length;
+  const dp = Array.from(Array(m + 1), () => Array(n + 1).fill(0));
+  for (let i = 0; i <= m; i++) {
+    dp[i][0] = i;
+  }
+  for (let j = 0; j <= n; j++) {
+    dp[0][j] = j;
+  }
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (word1[i - 1] === word2[j - 1]) {
+        dp[i][j] = dp[i - 1][j - 1];
+      } else {
+        dp[i][j] = Math.min(dp[i - 1][j - 1], dp[i][j - 1], dp[i - 1][j]) + 1;
+      }
+    }
+  }
+  return dp[m][n];
+}
